@@ -1,4 +1,8 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://ppsteven.github.io/github-style-blog/'
 locale = 'en-us'
-title = 'My New Hugo Project'
+title = 'PPSteven Blog'
 theme = 'github-style'
+
+[params]
+  author = "PPSteven"
+  description = "A blog about technology, coding and more"
