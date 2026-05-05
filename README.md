@@ -1,5 +1,7 @@
 # github-style
 
+> This project uses the [MeiK2333/github-style](https://github.com/MeiK2333/github-style) Hugo theme.
+
 ## Init hugo site
 
 ```bash
