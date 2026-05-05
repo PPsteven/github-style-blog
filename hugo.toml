@@ -2,6 +2,10 @@ baseURL = 'https://ppsteven.github.io/github-style-blog/'
 locale = 'en-us'
 title = 'PPSteven Blog'
 theme = 'github-style'
+ignoreLogs = ['warning-goldmark-raw-html']
+
+[markup.goldmark.renderer]
+unsafe = true
 
 [params]
   author = "PPSteven"
