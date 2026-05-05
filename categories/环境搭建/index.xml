@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>环境搭建 on PPSteven Blog</title>
+    <link>https://ppsteven.github.io/github-style-blog/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+    <description>Recent content in 环境搭建 on PPSteven Blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 01 Dec 2019 13:23:30 +0000</lastBuildDate>
+    <atom:link href="https://ppsteven.github.io/github-style-blog/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>0x4.家庭服务器折腾记|内网穿透方案|Ngork</title>
+      <link>https://ppsteven.github.io/github-style-blog/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/old-computer-adventures/how-to-connect-to-computer-in-home-ssh/</link>
+      <pubDate>Sun, 01 Dec 2019 13:23:30 +0000</pubDate>
+      <guid>https://ppsteven.github.io/github-style-blog/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/old-computer-adventures/how-to-connect-to-computer-in-home-ssh/</guid>
+      <description>&lt;p&gt;家中的电脑，由于没有公网ip，只能在家中用ssh 访问，一旦出门，就无法访问服务器了。这非常不方便，因为可能要从电脑上获取资料，访问数据库，修改代码等等操作，一旦离开本地环境，也太不方便了。&lt;/p&gt;&#xA;&lt;p&gt;经过百度后发现，需要利用  &lt;strong&gt;内网穿透&lt;/strong&gt; 技术实现。 原因是我们的ip资源是稀缺的，我们普通家庭中使用的ip都是动态分配的ip地址。没有固定的ip的服务器是无法与外网连接的，所以我们至少需要一个公网ip。&lt;/p&gt;&#xA;&lt;p&gt;内网穿透技术有很多了，我这里选择的是ngrok 这个方案。&#xA;我试了一下两种方案，第一个是外国的ngrok，没有尝试成功，而且免费版本每次断开后，生成的url 是随机的。所以没有采用。第二个是国内的Sunny-Ngrok，有免费版的。先尝试一波。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

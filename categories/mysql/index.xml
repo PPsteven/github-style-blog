@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MySQL on PPSteven Blog</title>
+    <link>https://ppsteven.github.io/github-style-blog/categories/mysql/</link>
+    <description>Recent content in MySQL on PPSteven Blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 26 May 2024 23:29:28 +0000</lastBuildDate>
+    <atom:link href="https://ppsteven.github.io/github-style-blog/categories/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MySQL Docker挂载数据至SMB-权限问题排查</title>
+      <link>https://ppsteven.github.io/github-style-blog/post/mount-mysql-data-to-smb-no-permission-debug/</link>
+      <pubDate>Sun, 26 May 2024 23:29:28 +0000</pubDate>
+      <guid>https://ppsteven.github.io/github-style-blog/post/mount-mysql-data-to-smb-no-permission-debug/</guid>
+      <description>&lt;h1 id=&#34;简介&#34;&gt;简介&lt;/h1&gt;&#xA;&lt;p&gt;使用Docker搭建MySQL服务时，考虑到MySQL存储的数据较大，希望存放在空间较大的nas上。于是通过容器目录映射的方式将数据通过smb的方式储存，但是报错 &lt;code&gt;Errcode: 13 - Permission denied&lt;/code&gt;。&lt;/p&gt;&#xA;&lt;p&gt;下面记录下排查过程和解决方案&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

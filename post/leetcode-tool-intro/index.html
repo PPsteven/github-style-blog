@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script type="application/javascript" src='https://ppsteven.github.io/github-style-blog/js/theme-mode.js'></script>
+    <link rel="stylesheet" href='https://ppsteven.github.io/github-style-blog/css/frameworks.min.css' />
+    <link rel="stylesheet" href='https://ppsteven.github.io/github-style-blog/css/github.min.css' />
+    <link rel="stylesheet" href='https://ppsteven.github.io/github-style-blog/css/github-style.css' />
+    <link rel="stylesheet" href='https://ppsteven.github.io/github-style-blog/css/light.css' />
+    <link rel="stylesheet" href='https://ppsteven.github.io/github-style-blog/css/dark.css' />
+    <link rel="stylesheet" href='https://ppsteven.github.io/github-style-blog/css/syntax.css' />
+    <title>leetcode-tool 一个让你更方便刷题的工具 - PPSteven Blog</title>
+    
+    <link rel="icon" type="image/x-icon" href='https://ppsteven.github.io/github-style-blog/images/favicon.ico'>
+    
+    <meta name="theme-color" content="#1e2327">
+
+    
+    
+    
+
+    
+    <meta
+  name="description"
+  content="前言 最近准备开始刷题，由于过去了很长时间，自己已经忘记了之前刷题的一些注意事项和做题思路。同时Leetcode只提供最简单的刷题记录，查看自己的解题记录也不是那么方便，需要一个个题目去点击查看。为此，我试着在Github上开始寻找是否存在一个Leetcode的刷题工具，能离线记录自己的刷题，并对做过的题目进行分类记录，可以按类型去查看自己刷题进度的一种工具。
+"
+/>
+<meta
+  name="keywords"
+  content=''
+/>
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ppsteven.github.io/github-style-blog/post/leetcode-tool-intro/" />
+
+
+<meta name="twitter:card" content="summary" />
+<meta
+  name="twitter:title"
+  content="leetcode-tool 一个让你更方便刷题的工具 - PPSteven Blog"
+/>
+<meta
+  name="twitter:description"
+  content="前言 最近准备开始刷题，由于过去了很长时间，自己已经忘记了之前刷题的一些注意事项和做题思路。同时Leetcode只提供最简单的刷题记录，查看自己的解题记录也不是那么方便，需要一个个题目去点击查看。为此，我试着在Github上开始寻找是否存在一个Leetcode的刷题工具，能离线记录自己的刷题，并对做过的题目进行分类记录，可以按类型去查看自己刷题进度的一种工具。
+"
+/>
+<meta name="twitter:site" content="https://ppsteven.github.io/github-style-blog/" />
+<meta name="twitter:creator" content="" />
+<meta
+  name="twitter:image"
+  content="https://ppsteven.github.io/github-style-blog/"
+/>
+
+
+<meta
+  property="og:type"
+  content="article"
+/>
+<meta
+  property="og:title"
+  content="leetcode-tool 一个让你更方便刷题的工具 - PPSteven Blog"
+/>
+<meta
+  property="og:description"
+  content="前言 最近准备开始刷题，由于过去了很长时间，自己已经忘记了之前刷题的一些注意事项和做题思路。同时Leetcode只提供最简单的刷题记录，查看自己的解题记录也不是那么方便，需要一个个题目去点击查看。为此，我试着在Github上开始寻找是否存在一个Leetcode的刷题工具，能离线记录自己的刷题，并对做过的题目进行分类记录，可以按类型去查看自己刷题进度的一种工具。
+"
+/>
+<meta property="og:url" content="https://ppsteven.github.io/github-style-blog/post/leetcode-tool-intro/" />
+<meta property="og:site_name" content="leetcode-tool 一个让你更方便刷题的工具" />
+<meta
+  property="og:image"
+  content="https://ppsteven.github.io/github-style-blog/"
+/>
+<meta property="og:image:width" content="2048" />
+<meta property="og:image:height" content="1024" />
+
+<meta property="article:published_time" content="2024-05-05 11:29:28 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+</head>
+
+
+<body>
+  <div style="position: relative">
+  <header class="Header js-details-container Details px-3 px-md-4 px-lg-5 flex-wrap flex-md-nowrap open Details--on">
+    <div class="Header-item mobile-none" style="margin-top: -4px; margin-bottom: -4px;">
+      <a class="Header-link" href="https://github.com/PPsteven">
+        <img class="octicon" height="32" width="32" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png">
+      </a>
+    </div>
+    <div class="Header-item d-md-none">
+      <button class="Header-link btn-link js-details-target" type="button"
+        onclick="document.querySelector('#header-search').style.display = document.querySelector('#header-search').style.display == 'none'? 'block': 'none'">
+        <svg height="24" class="octicon octicon-three-bars" viewBox="0 0 16 16" version="1.1" width="24">
+          <path fill-rule="evenodd" d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 7.75zM1.75 12a.75.75 0 100 1.5h12.5a.75.75 0 100-1.5H1.75z">
+          </path>
+        </svg>
+      </button>
+    </div>
+    <div style="display: none;" id="header-search"
+      class="Header-item Header-item--full flex-column flex-md-row width-full flex-order-2 flex-md-order-none mr-0 mr-md-3 mt-3 mt-md-0 Details-content--hidden-not-important d-md-flex">
+      <div
+        class="Header-search header-search flex-auto js-site-search position-relative flex-self-stretch flex-md-self-auto mb-3 mb-md-0 mr-0 mr-md-3 scoped-search site-scoped-search js-jump-to">
+        <div class="position-relative">
+          
+          <form target="_blank" action="https://www.google.com/search" accept-charset="UTF-8" method="get"
+            autocomplete="off">
+            <label
+              class="Header-search-label form-control input-sm header-search-wrapper p-0 js-chromeless-input-container header-search-wrapper-jump-to position-relative d-flex flex-justify-between flex-items-center">
+              <input type="text"
+                class="Header-search-input form-control input-sm header-search-input jump-to-field js-jump-to-field js-site-search-focus js-site-search-field is-clearable"
+                name="q" value="" placeholder="Search" autocomplete="off">
+              <input type="hidden" name="q" value="site:https://ppsteven.github.io/github-style-blog/">
+            </label>
+          </form>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="Header-item Header-item--full flex-justify-center d-md-none position-relative">
+      <a class="Header-link " href="https://github.com/PPsteven">
+        <img class="octicon octicon-mark-github v-align-middle" height="32" width="32" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png">
+      </a>
+    </div>
+    <div class="Header-item" style="margin-right: 0;">
+      <a href="javascript:void(0)" class="Header-link no-select" onclick="switchTheme()">
+        <svg style="fill: var(--color-profile-color-modes-toggle-moon);" class="no-select" viewBox="0 0 16 16"
+          version="1.1" width="16" height="16">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M4.52208 7.71754C7.5782 7.71754 10.0557 5.24006 10.0557 2.18394C10.0557 1.93498 10.0392 1.68986 10.0074 1.44961C9.95801 1.07727 10.3495 0.771159 10.6474 0.99992C12.1153 2.12716 13.0615 3.89999 13.0615 5.89383C13.0615 9.29958 10.3006 12.0605 6.89485 12.0605C3.95334 12.0605 1.49286 10.001 0.876728 7.24527C0.794841 6.87902 1.23668 6.65289 1.55321 6.85451C2.41106 7.40095 3.4296 7.71754 4.52208 7.71754Z">
+          </path>
+        </svg>
+      </a>
+    </div>
+  </header>
+</div>
+
+  <div id="search-result" class="container-lg px-3 new-discussion-timeline" style="display: none;">
+</div>
+
+  
+<div class="application-main">
+  <div>
+  <main>
+    <div class="gisthead pagehead bg-gray-light pb-0 pt-3 mb-4">
+      <div class="px-0">
+        <div class="mb-3 d-flex px-3 px-md-3 px-lg-5">
+          <div class="flex-auto min-width-0 width-fit mr-3">
+            <div class="d-flex">
+              <div class="d-none d-md-block">
+                <a class="avatar mr-2 flex-shrink-0" href="https://ppsteven.github.io/github-style-blog/">
+                  <img class=" avatar-user"
+                    src="https://github.com/PPsteven.png"
+                    width="32" height="32"></a>
+              </div>
+              <div class="d-flex flex-column">
+                <h1 class="break-word f3 text-normal mb-md-0 mb-1">
+                  <span class="author">
+                    <a href="https://ppsteven.github.io/github-style-blog/">PPSteven</a>
+                  </span>
+                  <span class="path-divider">/</span>
+                  <strong class="css-truncate css-truncate-target mr-1" style="max-width: 410px">
+                    <a href="https://ppsteven.github.io/github-style-blog/post/leetcode-tool-intro/">leetcode-tool 一个让你更方便刷题的工具</a>
+                  </strong>
+                </h1>
+                <div class="note m-0">
+                  Created <relative-time datetime="Sun, 05 May 2024 11:29:28 &#43;0000"
+                    class="no-wrap">
+                    Sun, 05 May 2024 11:29:28 &#43;0000</relative-time>
+
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-lg px-3 new-discussion-timeline">
+      <div class="repository-content gist-content">
+        <div>
+          <div class="js-gist-file-update-container js-task-list-container file-box">
+            <div id="file-pytest" class="file my-2">
+              <div id="post-header" class="file-header d-flex flex-md-items-center flex-items-start sticky-header" style="z-index: 2">
+                <div class="file-info d-flex flex-md-items-center flex-items-start flex-order-1 flex-auto">
+                  <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">
+                    
+                    <summary id="toc-toggle" onclick="clickToc()" class="btn btn-octicon m-0 mr-2 p-2">
+                      <svg aria-hidden="true" viewBox="0 0 16 16" height="16" width="16" class="octicon octicon-list-unordered">
+                        <path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path>
+                      </svg>
+                    </summary>
+                    <details-menu class="SelectMenu" id="toc-details" style="display: none;">
+                      <div class="SelectMenu-modal rounded-3 mt-1" style="max-height: 340px;">
+                        <div class="SelectMenu-list SelectMenu-list--borderless p-2" style="overscroll-behavior: contain;" id="toc-list">
+                        </div>
+                      </div>
+                    </details-menu>
+                      2928 Words
+                    
+
+                  </div>
+                  <div class="file-actions flex-order-2 pt-0">
+                    
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="Box-body px-5 pb-5" style="z-index: 1">
+                <article class="markdown-body entry-content container-lg"><h2 id="前言">前言</h2>
+<p>最近准备开始刷题，由于过去了很长时间，自己已经忘记了之前刷题的一些注意事项和做题思路。同时Leetcode只提供最简单的刷题记录，查看自己的解题记录也不是那么方便，需要一个个题目去点击查看。为此，我试着在Github上开始寻找是否存在一个Leetcode的刷题工具，能离线记录自己的刷题，并对做过的题目进行分类记录，可以按类型去查看自己刷题进度的一种工具。</p>
+<p>最后，找到了 <a href="https://github.com/zcong1993/leetcode-tool">leetcode-tool</a> 这一个工具，作者还写了一篇 <a href="https://blog.cong.moe/post/2020-11-30-leetcode_tool">leetcode-tool 一个让你更方便刷题的工具</a> 详细说明了用法，可惜的是，该工具已经多年不维护，于是我基于此工具做了一些定制化的开发以满足我的需求，增加的改动如下：</p>
+<ol>
+<li>使用Python脚本爬取Leetcode中英文题目，离线保存。</li>
+<li>使用GPT辅助答题</li>
+<li>刷题记录导出至Notion看板</li>
+</ol>
+<p>项目地址如下：https://github.com/PPsteven/leetcode-tool
+编码不易，欢迎点Star多多支持！！</p>
+<p>效果如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/PPsteven/leetcode-tool/master/screenshots/toc.png" alt="img"></p>
+<p><img src="https://raw.githubusercontent.com/PPsteven/leetcode-tool/master/screenshots/notion-leetcode-summary.png" alt="img"></p>
+<h2 id="leetcode-刷题的痛点">Leetcode 刷题的痛点</h2>
+<p>Leetcode 是一个很好的刷题网站，但是对于做好的题目，在Leetcode上存在如下痛点：</p>
+<ol>
+<li>无法方便的查看自己的解题答案</li>
+<li>无法对于一题多解和一题多语言的答案进行整理</li>
+<li>缺失对已通过题目的分类统计，如查找已完成的 <code>动态规划</code>，<code>链表</code>的题目，并复习归纳。</li>
+</ol>
+<p><img src="/post/03.leetcode-tool%E5%88%B7%E9%A2%98%E5%8A%A9%E6%89%8B/assets/img/leetcode-problem-review.png" alt="img"></p>
+<h2 id="leetcode-tool-功能">leetcode-tool 功能</h2>
+<p>为了解决上述问题，其实做法就是在本地保存一份已提交的答案，并对其打标签，最后对标签进行汇总统计生成 <code>做题清单</code>。</p>
+<p>对此，Leetcode 刷题工具的基础功能如下：</p>
+<ol>
+<li>爬取Leetcode题目，并保存在本地。</li>
+<li>生成Leetcode刷题模板，模板中包含题目的标签，支持人工修改。</li>
+<li>依据标签汇总生产 <code>做题清单</code>。
+此外，为了方便筛选管理已做的题目，支持导出至Notion看板。</li>
+</ol>
+<h2 id="安装">安装</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># homebrew</span>
+</span></span><span style="display:flex;"><span>$ brew tap ppsteven/homebrew-tap
+</span></span><span style="display:flex;"><span>$ brew install ppsteven/homebrew-tap/leetcode-tool
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ leetcode-tool help
+</span></span></code></pre></div><h2 id="使用">使用</h2>
+<h3 id="0-创建配置文件并下载离线数据包">0. 创建配置文件并下载离线数据包</h3>
+<p>首先在创建一个做题目录，在目录下创建 <code>.leetcode.json</code> 配置文件，可以参考仓库中的 <a href="https://github.com/PPsteven/leetcode-tool/blob/master/.leetcode.example.json">.leetcode.example.json</a> 文件.</p>
+<pre tabindex="0"><code>{
+    &#34;lang&#34;: &#34;go/py3/ts/java&#34;, // 项目全局语言, 配置后 new 命令 --lang 参数可省略, 目前支持 go ts js py3 java
+    &#34;env&#34;: &#34;en/cn&#34;,
+    &#34;gpt&#34;: {
+    &#34;api_key&#34;: &#34;sk-xxx&#34;,
+        &#34;model&#34;: &#34;gpt-3.5-turbo&#34;,
+        &#34;prompt&#34;: &#34;您是一个算法专家，请基于下面的算法题目，给出该算法的思路和复杂度, 使用 {{ .TextLang }} 回答\nSETP1. 给出算法的归类，如递归，栈\nSETP2. 若是存在暴力解法，给出思路和复杂度\nSETP3. 给出最优解法和复杂度\nSETP4. 代码实现，使用 {{ .Lang }} 语言，代码带注释和测试样例。\n\n{{ .Problem }}&#34;
+    }
+}
+</code></pre><ul>
+<li>lang: 当前支持语言 go/py3/ts/java</li>
+<li>env: 界面语言 cn 中文站/ en 英文站</li>
+<li>gpt: 支持gpt对题目提示，在没有思路的时候辅助解题
+<ul>
+<li>api_key: openai key</li>
+<li>model: openai model</li>
+<li>prompt: 自定义提示词，双花括号代表的是变量，在生成提示词的时候会被替换为字符串
+<ul>
+<li>{{ .TextLang }} 根据env决定，en:英文，cn:中文</li>
+<li>{{ .Lang }} 编程语言</li>
+<li>{{ .Problem }} 题目内容，必须加上</li>
+<li>prompt 如果不填写的话，就使用如下默认prompt提示词模板</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre tabindex="0"><code>您是一个算法专家，请基于下面的算法题目，给出该算法的思路和复杂度, 使用 {{ .TextLang }} 回答
+SETP1. 给出算法的归类，如递归，栈
+SETP2. 若是存在暴力解法，给出思路和复杂度
+SETP3. 给出最优解法和复杂度
+SETP4. 代码实现，使用 {{ .Lang }} 语言，代码带注释和测试样例。
+
+{{ .Problem }}
+</code></pre><p>尝试获取题目信息，第一次使用时，会尝试从Github下载Leetcode离线数据包，其中包含了所有题目信息。</p>
+<p>（P.S. 这个数据是通过Python脚本爬虫实现，具体详见代码：<a href="https://github.com/PPsteven/leetcode-tool/blob/master/script/leetcode_crawler.py">leetcode_crawler.py</a>）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ leetcode-tool meta <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>file problems.json not exists, start downloading from https://raw.githubusercontent.com/PPsteven/leetcode-tool/master/problems.json
+</span></span><span style="display:flex;"><span>&amp;<span style="color:#f92672">{</span>Index:1 Title:两数之和 Slug:two-sum Difficulty:简单 Tags:<span style="color:#f92672">[</span>array hash-table<span style="color:#f92672">]</span> Link:https://leetcode.cn/problems/two-sum/description/ Content: Code: Solved:false<span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>但是国内的用户可能由于网络原因无法下载，此时需要手动下载存放在吧本地目录中。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ wget https://raw.githubusercontent.com/PPsteven/leetcode-tool/master/problems.json
+</span></span></code></pre></div><h3 id="1-创建题目">1. 创建题目</h3>
+<p>刷题之前先得有题目ID, 要去 LeetCode 上面找一道题目, 找到它的序号(必须是前端页面看到的). 然后运行:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>❯ leetcode-tool new --lang go <span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><p>此步骤会创建一个题解文件夹和三个文件:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>❯ tree solve/solve0001
+</span></span><span style="display:flex;"><span>solve/solve0001
+</span></span><span style="display:flex;"><span>├── problem.md <span style="color:#75715e"># 题目描述文件</span>
+</span></span><span style="display:flex;"><span>├── solve_0001.go <span style="color:#75715e"># 题解源码文件</span>
+</span></span><span style="display:flex;"><span>└── solve_0001_test.go <span style="color:#75715e"># 测试文件</span>
+</span></span></code></pre></div><p><code>problem.md</code> 文件为 LeetCode 网页上的题目描述, 在 GitHub 上面显示完全正常, 代码块和图片都可正常显示;</p>
+<p><img src="/post/03.leetcode-tool%E5%88%B7%E9%A2%98%E5%8A%A9%E6%89%8B/assets/img/leetcode-problem-html-review.png" alt="problem"></p>
+<p><code>solve_0001.go</code> 为初始化的源码文件:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">solve0001</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @index 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @title 两数之和
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @difficulty 简单
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @tags array,hash-table
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @draft false
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @link https://leetcode-cn.com/problems/two-sum/
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @frontendId 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">twoSum</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">target</span> <span style="color:#66d9ef">int</span>) []<span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>文件中间的注解是后面生成汇总文件表格所需要的信息, 都是通过 api 获取到的题目信息.</p>
+<p><code>solve_0001_test.go</code> 相对很简陋:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">solve0001_test</span>
+</span></span></code></pre></div><p>以上, 题目初始化就完成了.</p>
+<p><em>注意:</em> 刷题基本是只会选择一门语言, 所以 <code>--lang</code> 这个参数略显繁琐, 我们可以在项目根文件创建一个内容为 <code>{ &quot;lang&quot;: &quot;go&quot; }</code> 的 <code>.leetcode.json</code> 文件, 此参数就可以省略了。</p>
+<h3 id="2-解题">2. 解题</h3>
+<p><del>工具再好也不可能帮你解题, 所以解题还是要靠自己.</del></p>
+<p>目前，基于LLM大模型技术，已经可以实现使用GPT辅助刷题了：<a href="https://wallstreetcn.com/articles/3684883">GPT-4满分第一名通过大厂模拟面试！微软154页研究刷屏：与AGI的第一次接触</a></p>
+<p>首先，配置好字段 <code>gpt.api_key</code>，<code>gpt.model</code>，<code>gpt.prompt</code>（可选）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-diff" data-lang="diff"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    &#34;lang&#34;: &#34;go/py3/ts/java&#34;, // 项目全局语言, 配置后 new 命令 --lang 参数可省略, 目前支持 go ts js py3 java
+</span></span><span style="display:flex;"><span>    &#34;env&#34;: &#34;en/cn&#34;,
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">+    &#34;gpt&#34;: {
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">+    &#34;api_key&#34;: &#34;sk-xxx&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">+        &#34;model&#34;: &#34;gpt-3.5-turbo&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">+        &#34;prompt&#34;: &#34;您是一个算法专家，请基于下面的算法题目，给出该算法的思路和复杂度, 使用 {{ .TextLang }} 回答\nSETP1. 给出算法的归类，如递归，栈\nSETP2. 若是存在暴力解法，给出思路和复杂度\nSETP3. 给出最优解法和复杂度\nSETP4. 代码实现，使用 {{ .Lang }} 语言，代码带注释和测试样例。\n\n{{ .Problem }}&#34;
+</span></span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>开始解题</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ leetcode-tool gpt <span style="color:#ae81ff">4</span>
+</span></span></code></pre></div><p>效果如下：</p>
+<p><img src="https://raw.githubusercontent.com/PPsteven/leetcode-tool/master/screenshots/gpt.gif" alt="img"></p>
+<p>入门题目直接搞定, 并且完成测试文件:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// solve_0001.go</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">twoSum</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">target</span> <span style="color:#66d9ef">int</span>) []<span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">mp</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">int</span>]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">num</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">nums</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">idx</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">mp</span>[<span style="color:#a6e22e">target</span><span style="color:#f92672">-</span><span style="color:#a6e22e">num</span>]; <span style="color:#a6e22e">ok</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">return</span> []<span style="color:#66d9ef">int</span>{<span style="color:#a6e22e">idx</span>, <span style="color:#a6e22e">i</span>}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">mp</span>[<span style="color:#a6e22e">num</span>] = <span style="color:#a6e22e">i</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> []<span style="color:#66d9ef">int</span>{}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// solve_0001_test.go</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestTwoSum</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">assert</span>.<span style="color:#a6e22e">Equal</span>(<span style="color:#a6e22e">t</span>, []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>}, <span style="color:#a6e22e">twoSum</span>([]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">15</span>}, <span style="color:#ae81ff">9</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">assert</span>.<span style="color:#a6e22e">Equal</span>(<span style="color:#a6e22e">t</span>, []<span style="color:#66d9ef">int</span>{}, <span style="color:#a6e22e">twoSum</span>([]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">15</span>}, <span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>搞定题目.</p>
+<h3 id="3-更新题目分类汇总">3. 更新题目分类汇总</h3>
+<p>下面是自动生成的题目注释，通过编辑注释信息，帮助我们分类该题的解法。</p>
+<pre tabindex="0"><code>/**
+ * @index 1
+ * @title Two Sum
+ * @difficulty EASY
+ * @tags array,hash-table
+ * @draft false
+ * @link https://leetcode.cn/problems/two-sum/description/
+ * @frontendId 1
+ * @solved false
+*/
+</code></pre><ul>
+<li>index: 题目编号</li>
+<li>title: 题目名称</li>
+<li>difficulty: 题目难易程度</li>
+<li>tags: 题目标签默认为Leetcode标签，同时也可以自定义标签</li>
+<li>draft: 是否草稿，true 则不会在update的时候对该题进行分类</li>
+<li>link: 题目链接</li>
+<li>frontendId: 题目编号</li>
+<li>solved: 是否解决</li>
+</ul>
+<p>开始更新</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>❯ leetcode-tool update
+</span></span></code></pre></div><p>更新完成后，就会成功生成如下分类</p>
+<p><img src="https://raw.githubusercontent.com/PPsteven/leetcode-tool/master/screenshots/toc.png" alt="img"></p>
+<h3 id="4-同步至github">4. 同步至github</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; git add . 
+</span></span><span style="display:flex;"><span>&gt; git commit -m <span style="color:#e6db74">&#34;update&#34;</span>
+</span></span></code></pre></div><p>最终的效果可以参考：</p>
+<ul>
+<li><a href="https://github.com/zcong1993/algo-go">zcong1993/algo-go</a></li>
+<li><a href="https://github.com/PPsteven/algorithm">PPsteven/algorithm</a></li>
+</ul>
+<h3 id="5-同步至notion数据库">5. 同步至Notion数据库</h3>
+<p>配置好字段 <code>notion.token</code>，<code>notion.database_id</code>，<code>notion.page_id</code>（选填）</p>
+<ol>
+<li>
+<p>首先，申请 notion 权限，支持通过 <code>notion-api</code> 操作你得notion页面，教程随便找了一个：<a href="https://seedao.notion.site/Notion-API-Key-32a2aa92e8f346f4813dfbab80e7c6dd?pvs=21">取得Notion API Key 流程</a></p>
+</li>
+<li>
+<p>获取 page_id
+点开你的notion页面，进入你需要创建的数据库的父页面，直接获取 URL 地址中 <code>-</code> 后的一串字符串。</p>
+<p><img src="/post/03.leetcode-tool%E5%88%B7%E9%A2%98%E5%8A%A9%E6%89%8B/assets/img/get-notion-page-id.png" alt="image-20240505021735518"></p>
+<p>并填入 <code>.leetcode.json</code> 中</p>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-diff" data-lang="diff"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">+  &#34;notion&#34;: {
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">+    &#34;token&#34;: &#34;secret_nDoJWULxdaudMhbEdSo1g2TWUqYxqnArow4w6qo2NX&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">+    &#34;database_id&#34;: &#34;3fbv1c2bf55e4fa18c66a5b0a61fa403&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">+    &#34;page_id&#34;: &#34;59194b57331444eca8e7c996a1cdb505&#34;
+</span></span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ol start="3">
+<li>同步并创建数据库
+使用如下命令，开启同步记录至notion页面</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ leetcode-tool sync --notion
+</span></span><span style="display:flex;"><span>2024/05/05 00:56:43 Create Database: e7086c88f6504623956d1271b70aa2b4, Please add the database_id in the config file
+</span></span><span style="display:flex;"><span>2024/05/05 00:56:43 Visited Link: https://www.notion.so/e7086c88f6504623956d1271b70aa2b4
+</span></span><span style="display:flex;"><span>sync leetcode record to notion, progress: 51/52%
+</span></span></code></pre></div><p>除此使用，会在当前notion页面下创建一个 <code>inline</code> 显示的数据库，终端会给出其数据库的id，如 <code>e7086c88f6504623956d1271b70aa2b4</code></p>
+<p><img src="https://raw.githubusercontent.com/PPsteven/leetcode-tool/master/screenshots/notion-leetcode-summary.png" alt="img"></p>
+<ol start="4">
+<li>更新数据库</li>
+</ol>
+<p>将上面获取的 database_id 手动添加至 <code>.leetcode.json</code> 文件中后，未来的每次更新都会更新该数据库，当且仅当数据发生变动后才会更新</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ leetcode-tool sync --notion
+</span></span></code></pre></div><h2 id="后记">后记</h2>
+<p>本项目在开发过程中，如下开源项目给予了灵感和代码参考</p>
+<blockquote>
+<p><a href="https://github.com/zcong1993/leetcode-tool">https://github.com/zcong1993/leetcode-tool</a></p>
+</blockquote>
+<p>此项目已多年不更新，本代码在Fork此仓库的基础上添加了如下功能：</p>
+<ul>
+<li>离线下载了 Leetcode 3400+题，保证了在Leetcode接口发生改变后依然可以运行。</li>
+<li>优化了部分代码逻辑</li>
+<li>接入了Openai辅助解题</li>
+</ul>
+<p>Leetcode 题目爬虫使用Python实现，详见 <code>scripts</code> 文件夹，代码参考：https://github.com/bunnyxt/lcid</p>
+<p>notion 接入部分，参考了：</p>
+<ul>
+<li><a href="https://github.com/xzhao11/leetcode_to_notion">leetcode_to_notion</a></li>
+<li><a href="https://developers.notion.com/reference/intro">notion/developers</a></li>
+</ul></article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script type="application/javascript" src='https://ppsteven.github.io/github-style-blog/js/toc.js'></script>
+<link rel="stylesheet" href='https://ppsteven.github.io/github-style-blog/css/toc.css' />
+
+  
+</div>
+
+  <div class="footer container-xl width-full p-responsive">
+  <div
+    class="position-relative d-flex flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between flex-sm-items-center pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light ">
+    <a aria-label="Homepage" title="GitHub" class="footer-octicon d-none d-lg-block mr-lg-4" href="https://ppsteven.github.io/github-style-blog/">
+      <svg height="24" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" width="24">
+        <path fill-rule="evenodd"
+          d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+        </path>
+      </svg>
+    </a>
+    <ul class="list-style-none d-flex flex-wrap col-12 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0">
+      
+      <li class="mr-3 mr-lg-0">Theme by <a href='https://github.com/MeiK2333/github-style'>github-style</a></li>
+      
+      <li class="mr-3 mr-lg-0">GitHub and the Invertocat logo are trademarks of <a href="https://github.com/">GitHub, Inc.</a></li>
+    </ul>
+  </div>
+  <div class="d-flex flex-justify-center pb-6">
+    <span class="f6 text-gray-light"></span>
+  </div>
+
+
+</div>
+
+</body>
+
+<script type="application/javascript" src="https://ppsteven.github.io/github-style-blog/js/github-style.js"></script>
+
+
+
+
+
+
+
+</html>

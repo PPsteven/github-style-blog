@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>爬虫 on PPSteven Blog</title>
+    <link>https://ppsteven.github.io/github-style-blog/categories/%E7%88%AC%E8%99%AB/</link>
+    <description>Recent content in 爬虫 on PPSteven Blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 05 May 2024 11:29:28 +0000</lastBuildDate>
+    <atom:link href="https://ppsteven.github.io/github-style-blog/categories/%E7%88%AC%E8%99%AB/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>leetcode-tool 一个让你更方便刷题的工具</title>
+      <link>https://ppsteven.github.io/github-style-blog/post/leetcode-tool-intro/</link>
+      <pubDate>Sun, 05 May 2024 11:29:28 +0000</pubDate>
+      <guid>https://ppsteven.github.io/github-style-blog/post/leetcode-tool-intro/</guid>
+      <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;&#xA;&lt;p&gt;最近准备开始刷题，由于过去了很长时间，自己已经忘记了之前刷题的一些注意事项和做题思路。同时Leetcode只提供最简单的刷题记录，查看自己的解题记录也不是那么方便，需要一个个题目去点击查看。为此，我试着在Github上开始寻找是否存在一个Leetcode的刷题工具，能离线记录自己的刷题，并对做过的题目进行分类记录，可以按类型去查看自己刷题进度的一种工具。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>慢慢买比价爬虫(JS 逆向破解)</title>
+      <link>https://ppsteven.github.io/github-style-blog/post/pages/cb409c/</link>
+      <pubDate>Thu, 14 Jan 2021 11:29:28 +0000</pubDate>
+      <guid>https://ppsteven.github.io/github-style-blog/post/pages/cb409c/</guid>
+      <description>&lt;p&gt;项目中涉及到对淘宝，京东商品历史价格的数据采集，直接爬虫是获取不到历史数据的。需要借助第三方比价平台——&lt;a href=&#34;http://www.manmanbuy.com/&#34;&gt;慢慢买&lt;/a&gt;。慢慢买是全网比价平台，主要是通过实习爬取淘宝，京东，天猫等电扇购物平台，向用户提供多平台的商品价格比较。同时，慢慢买还提供历史价格查询的功能。作为一个爬虫平台，慢慢买在反爬虫上也是花费了不少心思。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script type="application/javascript" src='https://ppsteven.github.io/github-style-blog/js/theme-mode.js'></script>
+    <link rel="stylesheet" href='https://ppsteven.github.io/github-style-blog/css/frameworks.min.css' />
+    <link rel="stylesheet" href='https://ppsteven.github.io/github-style-blog/css/github.min.css' />
+    <link rel="stylesheet" href='https://ppsteven.github.io/github-style-blog/css/github-style.css' />
+    <link rel="stylesheet" href='https://ppsteven.github.io/github-style-blog/css/light.css' />
+    <link rel="stylesheet" href='https://ppsteven.github.io/github-style-blog/css/dark.css' />
+    <link rel="stylesheet" href='https://ppsteven.github.io/github-style-blog/css/syntax.css' />
+    <title>0x10.家庭服务器折腾记|内网穿透方案|Headscale - PPSteven Blog</title>
+    
+    <link rel="icon" type="image/x-icon" href='https://ppsteven.github.io/github-style-blog/images/favicon.ico'>
+    
+    <meta name="theme-color" content="#1e2327">
+
+    
+    
+    
+
+    
+    <meta
+  name="description"
+  content="上文已介绍了zerotier是异地组网工具，下面再介绍一款开源的内网穿透工具Headscale，它是基于Tailscale的开源版本。
+"
+/>
+<meta
+  name="keywords"
+  content=''
+/>
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ppsteven.github.io/github-style-blog/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/old-computer-adventures/headscale/" />
+
+
+<meta name="twitter:card" content="summary" />
+<meta
+  name="twitter:title"
+  content="0x10.家庭服务器折腾记|内网穿透方案|Headscale - PPSteven Blog"
+/>
+<meta
+  name="twitter:description"
+  content="上文已介绍了zerotier是异地组网工具，下面再介绍一款开源的内网穿透工具Headscale，它是基于Tailscale的开源版本。
+"
+/>
+<meta name="twitter:site" content="https://ppsteven.github.io/github-style-blog/" />
+<meta name="twitter:creator" content="" />
+<meta
+  name="twitter:image"
+  content="https://ppsteven.github.io/github-style-blog/"
+/>
+
+
+<meta
+  property="og:type"
+  content="article"
+/>
+<meta
+  property="og:title"
+  content="0x10.家庭服务器折腾记|内网穿透方案|Headscale - PPSteven Blog"
+/>
+<meta
+  property="og:description"
+  content="上文已介绍了zerotier是异地组网工具，下面再介绍一款开源的内网穿透工具Headscale，它是基于Tailscale的开源版本。
+"
+/>
+<meta property="og:url" content="https://ppsteven.github.io/github-style-blog/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/old-computer-adventures/headscale/" />
+<meta property="og:site_name" content="0x10.家庭服务器折腾记|内网穿透方案|Headscale" />
+<meta
+  property="og:image"
+  content="https://ppsteven.github.io/github-style-blog/"
+/>
+<meta property="og:image:width" content="2048" />
+<meta property="og:image:height" content="1024" />
+
+<meta property="article:published_time" content="2022-08-08 00:37:45 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+</head>
+
+
+<body>
+  <div style="position: relative">
+  <header class="Header js-details-container Details px-3 px-md-4 px-lg-5 flex-wrap flex-md-nowrap open Details--on">
+    <div class="Header-item mobile-none" style="margin-top: -4px; margin-bottom: -4px;">
+      <a class="Header-link" href="https://github.com/PPsteven">
+        <img class="octicon" height="32" width="32" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png">
+      </a>
+    </div>
+    <div class="Header-item d-md-none">
+      <button class="Header-link btn-link js-details-target" type="button"
+        onclick="document.querySelector('#header-search').style.display = document.querySelector('#header-search').style.display == 'none'? 'block': 'none'">
+        <svg height="24" class="octicon octicon-three-bars" viewBox="0 0 16 16" version="1.1" width="24">
+          <path fill-rule="evenodd" d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 7.75zM1.75 12a.75.75 0 100 1.5h12.5a.75.75 0 100-1.5H1.75z">
+          </path>
+        </svg>
+      </button>
+    </div>
+    <div style="display: none;" id="header-search"
+      class="Header-item Header-item--full flex-column flex-md-row width-full flex-order-2 flex-md-order-none mr-0 mr-md-3 mt-3 mt-md-0 Details-content--hidden-not-important d-md-flex">
+      <div
+        class="Header-search header-search flex-auto js-site-search position-relative flex-self-stretch flex-md-self-auto mb-3 mb-md-0 mr-0 mr-md-3 scoped-search site-scoped-search js-jump-to">
+        <div class="position-relative">
+          
+          <form target="_blank" action="https://www.google.com/search" accept-charset="UTF-8" method="get"
+            autocomplete="off">
+            <label
+              class="Header-search-label form-control input-sm header-search-wrapper p-0 js-chromeless-input-container header-search-wrapper-jump-to position-relative d-flex flex-justify-between flex-items-center">
+              <input type="text"
+                class="Header-search-input form-control input-sm header-search-input jump-to-field js-jump-to-field js-site-search-focus js-site-search-field is-clearable"
+                name="q" value="" placeholder="Search" autocomplete="off">
+              <input type="hidden" name="q" value="site:https://ppsteven.github.io/github-style-blog/">
+            </label>
+          </form>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="Header-item Header-item--full flex-justify-center d-md-none position-relative">
+      <a class="Header-link " href="https://github.com/PPsteven">
+        <img class="octicon octicon-mark-github v-align-middle" height="32" width="32" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png">
+      </a>
+    </div>
+    <div class="Header-item" style="margin-right: 0;">
+      <a href="javascript:void(0)" class="Header-link no-select" onclick="switchTheme()">
+        <svg style="fill: var(--color-profile-color-modes-toggle-moon);" class="no-select" viewBox="0 0 16 16"
+          version="1.1" width="16" height="16">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M4.52208 7.71754C7.5782 7.71754 10.0557 5.24006 10.0557 2.18394C10.0557 1.93498 10.0392 1.68986 10.0074 1.44961C9.95801 1.07727 10.3495 0.771159 10.6474 0.99992C12.1153 2.12716 13.0615 3.89999 13.0615 5.89383C13.0615 9.29958 10.3006 12.0605 6.89485 12.0605C3.95334 12.0605 1.49286 10.001 0.876728 7.24527C0.794841 6.87902 1.23668 6.65289 1.55321 6.85451C2.41106 7.40095 3.4296 7.71754 4.52208 7.71754Z">
+          </path>
+        </svg>
+      </a>
+    </div>
+  </header>
+</div>
+
+  <div id="search-result" class="container-lg px-3 new-discussion-timeline" style="display: none;">
+</div>
+
+  
+<div class="application-main">
+  <div>
+  <main>
+    <div class="gisthead pagehead bg-gray-light pb-0 pt-3 mb-4">
+      <div class="px-0">
+        <div class="mb-3 d-flex px-3 px-md-3 px-lg-5">
+          <div class="flex-auto min-width-0 width-fit mr-3">
+            <div class="d-flex">
+              <div class="d-none d-md-block">
+                <a class="avatar mr-2 flex-shrink-0" href="https://ppsteven.github.io/github-style-blog/">
+                  <img class=" avatar-user"
+                    src="https://github.com/PPsteven.png"
+                    width="32" height="32"></a>
+              </div>
+              <div class="d-flex flex-column">
+                <h1 class="break-word f3 text-normal mb-md-0 mb-1">
+                  <span class="author">
+                    <a href="https://ppsteven.github.io/github-style-blog/">PPSteven</a>
+                  </span>
+                  <span class="path-divider">/</span>
+                  <strong class="css-truncate css-truncate-target mr-1" style="max-width: 410px">
+                    <a href="https://ppsteven.github.io/github-style-blog/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/old-computer-adventures/headscale/">0x10.家庭服务器折腾记|内网穿透方案|Headscale</a>
+                  </strong>
+                </h1>
+                <div class="note m-0">
+                  Created <relative-time datetime="Mon, 08 Aug 2022 00:37:45 &#43;0000"
+                    class="no-wrap">
+                    Mon, 08 Aug 2022 00:37:45 &#43;0000</relative-time>
+
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-lg px-3 new-discussion-timeline">
+      <div class="repository-content gist-content">
+        <div>
+          <div class="js-gist-file-update-container js-task-list-container file-box">
+            <div id="file-pytest" class="file my-2">
+              <div id="post-header" class="file-header d-flex flex-md-items-center flex-items-start sticky-header" style="z-index: 2">
+                <div class="file-info d-flex flex-md-items-center flex-items-start flex-order-1 flex-auto">
+                  <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">
+                    
+                    <summary id="toc-toggle" onclick="clickToc()" class="btn btn-octicon m-0 mr-2 p-2">
+                      <svg aria-hidden="true" viewBox="0 0 16 16" height="16" width="16" class="octicon octicon-list-unordered">
+                        <path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path>
+                      </svg>
+                    </summary>
+                    <details-menu class="SelectMenu" id="toc-details" style="display: none;">
+                      <div class="SelectMenu-modal rounded-3 mt-1" style="max-height: 340px;">
+                        <div class="SelectMenu-list SelectMenu-list--borderless p-2" style="overscroll-behavior: contain;" id="toc-list">
+                        </div>
+                      </div>
+                    </details-menu>
+                      3231 Words
+                    
+
+                  </div>
+                  <div class="file-actions flex-order-2 pt-0">
+                    
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="Box-body px-5 pb-5" style="z-index: 1">
+                <article class="markdown-body entry-content container-lg"><p>上文已介绍了zerotier是异地组网工具，下面再介绍一款开源的内网穿透工具Headscale，它是基于Tailscale的开源版本。</p>
+<h2 id="介绍">介绍</h2>
+<blockquote>
+<p>Tailscale 是一种基于 WireGuard 的虚拟组网工具，和 Netmaker 类似，<strong>最大的区别在于 Tailscale 是在用户态实现了 WireGuard 协议，而 Netmaker 直接使用了内核态的 WireGuard</strong>。所以 Tailscale 相比于内核态 WireGuard 性能会有所损失，但与 OpenVPN 之流相比还是能甩好几十条街的，Tailscale 虽然在性能上做了些许取舍，但在功能和易用性上绝对是完爆其他工具</p>
+<p>&ndash;详见 <a href="https://icloudnative.io/post/how-to-set-up-or-migrate-headscale/#macos">Tailscale 基础教程：Headscale 的部署方法和使用教程</a></p>
+</blockquote>
+<h2 id="服务端部署">服务端部署</h2>
+<h3 id="headscale-配置">Headscale 配置</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># docker network create [OPTIONS] NETWORK</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># docker network create --ipv6 caddy_net</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;3.5&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">services</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">headscale</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">headscale/headscale:latest</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">headscale</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./config:/etc/headscale</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">../../docker-data/headscale:/var/lib/headscale</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">cap_add</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">NET_ADMIN</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">NET_RAW</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">SYS_MODULE</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">sysctls</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">net.ipv4.ip_forward=1</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">net.ipv6.conf.all.forwarding=1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># proxy by caddy</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># ports:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#   - 3050:8080</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">networks</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">caddy_net</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">command</span>: [<span style="color:#e6db74">&#34;headscale&#34;</span>, <span style="color:#e6db74">&#34;serve&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">unless-stopped</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">logging</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">driver</span>: <span style="color:#ae81ff">json-file</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">options</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">max-size</span>: <span style="color:#e6db74">&#34;50m&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">headscale-ui</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">ghcr.io/gurucomputing/headscale-ui:latest</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">headscale-ui</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># proxy by caddy</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># ports:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#   - 3100:80</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">networks</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">caddy_net</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">unless-stopped</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">logging</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">driver</span>: <span style="color:#ae81ff">json-file</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">options</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">max-size</span>: <span style="color:#e6db74">&#34;50m&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">networks</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">caddy_net</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">caddy_net</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">external</span>: <span style="color:#66d9ef">true</span>
+</span></span></code></pre></div><p>一些注意事项：</p>
+<ul>
+<li>网上给出了好几种部署方式，一般分为容器化部署和非容器化部署。需要注意的是如果是使用容器化部署，需要将</li>
+<li>为什么注释掉端口映射？建议刚开始部署服务的同学打开端口映射，这样方便在容器外调试。我关闭是因为想要通过Caddy来代理。（话说我也是从这个服务里了解Caddy的）。
+<ul>
+<li>Caddy 是Web服务器，是Nginx的替代品，配置上比Nginx简单很多。特点是自动帮助申请Https，省去了自己配置证书的麻烦。与之相类似的服务有<a href="https://github.com/NginxProxyManager/nginx-proxy-manager">NginxProxyManager</a>。</li>
+<li>新建了一个容器网络 <code>caddy_net</code>，所有服务与<code>caddy_net</code>联通，这样就可以保证端口不暴露出去，所有的请求都经过Caddy。</li>
+</ul>
+</li>
+<li>headscale-ui
+headscale-ui 是一款开源的Headscale图形化配置页面，用以添加客户端设备。这里坑的地方在于headscale-ui是有跨域限制。举例Headscale部署在 abc.com上，Headscale-ui 必须部署在 abc.com/web 上，不然就会出现错误。</li>
+</ul>
+<h3 id="config配置">Config配置</h3>
+<p>如下文件约定了Headscale的基础配置，容器中唯一需要注意的是，如果对外提供服务必须将 <code>127.0.0.1</code> 改为 <code>0.0.0.0</code> 这样保证了外部网络的请求能被处理。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># reference: https://github.com/juanfont/headscale/raw/main/config-example.yaml</span>
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># headscale will look for a configuration file named `config.yaml` (or `config.json`) in the following order:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># - `/etc/headscale`</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># - `~/.headscale`</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># - current working directory</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># The url clients will connect to.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Typically this will be a domain like:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># https://myheadscale.example.com:443</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 客户端真实请求的地址，反向代理后的地址</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 公网IP，或是域名，是所有设备需要能访问到的地址。</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">server_url</span>: <span style="color:#ae81ff">https://xxx.com/</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Address to listen to / bind to on the server</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># For local:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># listen_addr: 127.0.0.1:8080</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># For production:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Listen to 0.0.0.0 so it&#39;s accessible outside the container</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">listen_addr</span>: <span style="color:#ae81ff">0.0.0.0</span>:<span style="color:#ae81ff">8080</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Address to listen to /metrics, you may want</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># to keep this endpoint private to your internal</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># network</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># For local:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># metrics_listen_addr: 127.0.0.1:9090</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># set to 0.0.0</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Listen to 0.0.0.0 so it&#39;s accessible outside the container</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metrics_listen_addr</span>: <span style="color:#ae81ff">0.0.0.0</span>:<span style="color:#ae81ff">9090</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Address to listen for gRPC.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># gRPC is used for controlling a headscale server</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># remotely with the CLI</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Note: Remote access _only_ works if you have</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># valid certificates.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># For production:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># grpc_listen_addr: 0.0.0.0:50443</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">grpc_listen_addr</span>: <span style="color:#ae81ff">127.0.0.1</span>:<span style="color:#ae81ff">50443</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Allow the gRPC admin interface to run in INSECURE</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># mode. This is not recommended as the traffic will</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># be unencrypted. Only enable if you know what you</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># are doing.</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">grpc_allow_insecure</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Private key used to encrypt the traffic between headscale</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># and Tailscale clients.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># The private key file will be autogenerated if it&#39;s missing.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># For production:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># /var/lib/headscale/private.key</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># For test:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ./private.key</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">private_key_path</span>: <span style="color:#ae81ff">/var/lib/headscale/private.key</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># The Noise section includes specific configuration for the</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># TS2021 Noise protocol</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">noise</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># The Noise private key is used to encrypt the</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># traffic between headscale and Tailscale clients when</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># using the new Noise-based protocol. It must be different</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># from the legacy private key.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># For production:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># private_key_path: /var/lib/headscale/noise_private.key</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># For test:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># ./noise_private.key</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">private_key_path</span>: <span style="color:#ae81ff">/var/lib/headscale/noise_private.key</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># List of IP prefixes to allocate tailaddresses from.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Each prefix consists of either an IPv4 or IPv6 address,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># and the associated prefix length, delimited by a slash.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># While this looks like it can take arbitrary values, it</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># needs to be within IP ranges supported by the Tailscale</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># client.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># IPv6: https://github.com/tailscale/tailscale/blob/22ebb25e833264f58d7c3f534a8b166894a89536/net/tsaddr/tsaddr.go#LL81C52-L81C71</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># IPv4: https://github.com/tailscale/tailscale/blob/22ebb25e833264f58d7c3f534a8b166894a89536/net/tsaddr/tsaddr.go#L33</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">ip_prefixes</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">fd7a:115c:a1e0::/48</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">100.64.0.0</span><span style="color:#ae81ff">/10</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># DERP is a relay system that Tailscale uses when a direct</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># connection cannot be established.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># https://tailscale.com/blog/how-tailscale-works/#encrypted-tcp-relays-derp</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># headscale needs a list of DERP servers that can be presented</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># to the clients.</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">derp</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">server</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># If enabled, runs the embedded DERP server and merges it into the rest of the DERP config</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># The Headscale server_url defined above MUST be using https, DERP requires TLS to be in place</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Region ID to use for the embedded DERP server.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># The local DERP prevails if the region ID collides with other region ID coming from</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># the regular DERP config.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">region_id</span>: <span style="color:#ae81ff">999</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Region code and name are displayed in the Tailscale UI to identify a DERP region</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">region_code</span>: <span style="color:#e6db74">&#34;headscale&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">region_name</span>: <span style="color:#e6db74">&#34;Headscale Embedded DERP&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Listens over UDP at the configured address for STUN connections - to help with NAT traversal.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># When the embedded DERP server is enabled stun_listen_addr MUST be defined.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># For more details on how this works, check this great article: https://tailscale.com/blog/how-tailscale-works/</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">stun_listen_addr</span>: <span style="color:#e6db74">&#34;0.0.0.0:3478&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># List of externally available DERP maps encoded in JSON</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">urls</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">https://controlplane.tailscale.com/derpmap/default</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Locally available DERP map files encoded in YAML</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># This option is mostly interesting for people hosting</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># their own DERP servers:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># https://tailscale.com/kb/1118/custom-derp-servers/</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># paths:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - /etc/headscale/derp-example.yaml</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">paths</span>: []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># If enabled, a worker will be set up to periodically</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># refresh the given sources and update the derpmap</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># will be set up.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">auto_update_enabled</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># How often should we check for DERP updates?</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">update_frequency</span>: <span style="color:#ae81ff">24h</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Disables the automatic check for headscale updates on startup</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">disable_check_updates</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Time before an inactive ephemeral node is deleted?</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">ephemeral_node_inactivity_timeout</span>: <span style="color:#ae81ff">30m</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Period to check for node updates within the tailnet. A value too low will severely affect</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># CPU consumption of Headscale. A value too high (over 60s) will cause problems</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># for the nodes, as they won&#39;t get updates or keep alive messages frequently enough.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># In case of doubts, do not touch the default 10s.</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">node_update_check_interval</span>: <span style="color:#ae81ff">10s</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># SQLite config</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">db_type</span>: <span style="color:#ae81ff">sqlite3</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># For production:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># db_path: /var/lib/headscale/db.sqlite</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">db_path</span>: <span style="color:#ae81ff">./db.sqlite</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># # Postgres config</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># If using a Unix socket to connect to Postgres, set the socket path in the &#39;host&#39; field and leave &#39;port&#39; blank.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># db_type: postgres</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># db_host: localhost</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># db_port: 5432</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># db_name: headscale</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># db_user: foo</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># db_pass: bar</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># If other &#39;sslmode&#39; is required instead of &#39;require(true)&#39; and &#39;disabled(false)&#39;, set the &#39;sslmode&#39; you need</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># in the &#39;db_ssl&#39; field. Refers to https://www.postgresql.org/docs/current/libpq-ssl.html Table 34.1.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># db_ssl: false</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">### TLS configuration</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Let&#39;s encrypt / ACME</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># headscale supports automatically requesting and setting up</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># TLS for a domain with Let&#39;s Encrypt.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># URL to ACME directory</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">acme_url</span>: <span style="color:#ae81ff">https://acme-v02.api.letsencrypt.org/directory</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Email to register with ACME provider</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">acme_email</span>: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Domain name to request a TLS certificate for:</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">tls_letsencrypt_hostname</span>: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Path to store certificates and metadata needed by</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># letsencrypt</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># For production:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># tls_letsencrypt_cache_dir: /var/lib/headscale/cache</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># For test:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ./cache</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">tls_letsencrypt_cache_dir</span>: <span style="color:#ae81ff">/var/lib/headscale/cache</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Type of ACME challenge to use, currently supported types:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># HTTP-01 or TLS-ALPN-01</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># See [docs/tls.md](docs/tls.md) for more information</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">tls_letsencrypt_challenge_type</span>: <span style="color:#ae81ff">HTTP-01</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># When HTTP-01 challenge is chosen, letsencrypt must set up a</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># verification endpoint, and it will be listening on:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># :http = port 80</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">tls_letsencrypt_listen</span>: <span style="color:#e6db74">&#34;:http&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Use already defined certificates:</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">tls_cert_path</span>: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">tls_key_path</span>: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">log</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Output formatting for logs: text or json</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">format</span>: <span style="color:#ae81ff">text</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">level</span>: <span style="color:#ae81ff">info</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Path to a file containg ACL policies.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ACLs can be defined as YAML or HUJSON.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># https://tailscale.com/kb/1018/acls/</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">acl_policy_path</span>: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## DNS</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># headscale supports Tailscale&#39;s DNS configuration and MagicDNS.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Please have a look to their KB to better understand the concepts:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># - https://tailscale.com/kb/1054/dns/</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># - https://tailscale.com/kb/1081/magicdns/</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># - https://tailscale.com/blog/2021-09-private-dns-with-magicdns/</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">dns_config</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Whether to prefer using Headscale provided DNS or use local.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">override_local_dns</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># List of DNS servers to expose to clients.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">nameservers</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">1.1.1.1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># NextDNS (see https://tailscale.com/kb/1218/nextdns/).</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># &#34;abc123&#34; is example NextDNS ID, replace with yours.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># With metadata sharing:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># nameservers:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - https://dns.nextdns.io/abc123</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Without metadata sharing:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># nameservers:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - 2a07:a8c0::ab:c123</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - 2a07:a8c1::ab:c123</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Split DNS (see https://tailscale.com/kb/1054/dns/),</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># list of search domains and the DNS to query for each one.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># restricted_nameservers:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   foo.bar.com:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     - 1.1.1.1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   darp.headscale.net:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     - 1.1.1.1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     - 8.8.8.8</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Search domains to inject.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">domains</span>: []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Extra DNS records</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># so far only A-records are supported (on the tailscale side)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># See https://github.com/juanfont/headscale/blob/main/docs/dns-records.md#Limitations</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># extra_records:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - name: &#34;grafana.myvpn.example.com&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     type: &#34;A&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     value: &#34;100.64.0.3&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   # you can also put it in one line</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   - { name: &#34;prometheus.myvpn.example.com&#34;, type: &#34;A&#34;, value: &#34;100.64.0.3&#34; }</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Whether to use [MagicDNS](https://tailscale.com/kb/1081/magicdns/).</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Only works if there is at least a nameserver defined.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># 但是Tailscale有一个很坏的缺点，就是它不能自定义节点的IP，控制器给分配什么就只能是什么</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># 所以你肯定会需要Magic DNS来帮你辨识节点的！</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">magic_dns</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Defines the base domain to create the hostnames for MagicDNS.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># `base_domain` must be a FQDNs, without the trailing dot.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># The FQDN of the hosts will be</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># `hostname.user.base_domain` (e.g., _myhost.myuser.example.com_).</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># 显示在Magic DNS里的设备域名，随便写写</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">base_domain</span>: <span style="color:#ae81ff">example.com</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Unix socket used for the CLI to connect without authentication</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Note: for production you will want to set this to something like:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># For production</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># unix_socket: /var/run/headscale.sock</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># For test</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># unix_socket: ./headscale.sock</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">unix_socket</span>: <span style="color:#ae81ff">/var/run/headscale.sock</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">unix_socket_permission</span>: <span style="color:#e6db74">&#34;0770&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># headscale supports experimental OpenID connect support,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># it is still being tested and might have some bugs, please</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># help us test it.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># OpenID Connect</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># oidc:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   only_start_if_oidc_is_available: true</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   issuer: &#34;https://your-oidc.issuer.com/path&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   client_id: &#34;your-oidc-client-id&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   client_secret: &#34;your-oidc-client-secret&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # Alternatively, set `client_secret_path` to read the secret from the file.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # It resolves environment variables, making integration to systemd&#39;s</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # `LoadCredential` straightforward:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   client_secret_path: &#34;${CREDENTIALS_DIRECTORY}/oidc_client_secret&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # client_secret and client_secret_path are mutually exclusive.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # The amount of time from a node is authenticated with OpenID until it</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # expires and needs to reauthenticate.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # Setting the value to &#34;0&#34; will mean no expiry.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   expiry: 180d</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # Use the expiry from the token received from OpenID when the user logged</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # in, this will typically lead to frequent need to reauthenticate and should</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # only been enabled if you know what you are doing.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # Note: enabling this will cause `oidc.expiry` to be ignored.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   use_expiry_from_token: false</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # Customize the scopes used in the OIDC flow, defaults to &#34;openid&#34;, &#34;profile&#34; and &#34;email&#34; and add custom query</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # parameters to the Authorize Endpoint request. Scopes default to &#34;openid&#34;, &#34;profile&#34; and &#34;email&#34;.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   scope: [&#34;openid&#34;, &#34;profile&#34;, &#34;email&#34;, &#34;custom&#34;]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   extra_params:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     domain_hint: example.com</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # List allowed principal domains and/or users. If an authenticated user&#39;s domain is not in this list, the</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # authentication request will be rejected.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   allowed_domains:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     - example.com</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # Note: Groups from keycloak have a leading &#39;/&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   allowed_groups:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     - /headscale</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   allowed_users:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     - alice@example.com</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # If `strip_email_domain` is set to `true`, the domain part of the username email address will be removed.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # This will transform `first-name.last-name@example.com` to the user `first-name.last-name`</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   # If `strip_email_domain` is set to `false` the domain part will NOT be removed resulting to the following</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   user: `first-name.last-name.example.com`</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   strip_email_domain: true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Logtail configuration</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Logtail is Tailscales logging and auditing infrastructure, it allows the control panel</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># to instruct tailscale nodes to log their activity to a remote server.</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">logtail</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Enable logtail for this headscales clients.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># As there is currently no support for overriding the log server in headscale, this is</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># disabled by default. Enabling this will make your clients send logs to Tailscale Inc.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Enabling this option makes devices prefer a random port for WireGuard traffic over the</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># default static port 41641. This option is intended as a workaround for some buggy</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># firewall devices. See https://tailscale.com/kb/1181/firewalls/ for more information.</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">randomize_client_port</span>: <span style="color:#66d9ef">false</span>
+</span></span></code></pre></div><h3 id="caddy部署">Caddy部署</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># docker network create [OPTIONS] NETWORK</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># docker network create --ipv6 caddy_net</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;3.5&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">services</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">caddy</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># build image to add new module</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># image: caddy:latest</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">build</span>: 
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">context</span>: <span style="color:#ae81ff">.</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">dockerfile</span>: <span style="color:#ae81ff">Dockerfile</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">caddy</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">networks</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">caddy_net</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">../../docker-data/caddy:/data</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./config:/config</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">/etc/localtime:/etc/localtime:ro </span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">80</span>:<span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">443</span>:<span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">env_file</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./dnspod.env</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">/usr/bin/caddy run --adapter caddyfile --config /config/Caddyfile</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">networks</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">caddy_net</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">caddy_net</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">external</span>: <span style="color:#66d9ef">true</span>
+</span></span></code></pre></div><p>由于我需要接入 <code>泛域名</code>，所以这里自己build了一个镜像，如果没有这个需要，则直接拉取最新的 <code>caddy:latest</code>即可</p>
+<h3 id="caddy-dockerfile">Caddy Dockerfile</h3>
+<p>Caddy 是用Go写的，若是需要添加新功能必须得重新编译。如下Dockerfile 添加了<code>cloudflare</code>模块，让Caddy支持<code>泛域名</code></p>
+<pre tabindex="0"><code># Reference: https://hub.docker.com/_/caddy #Adding custom Caddy modules
+FROM caddy:2.6.4-builder AS builder
+
+# package can be found in https://caddyserver.com/download
+RUN xcaddy build \
+    --with github.com/caddy-dns/cloudflare
+
+FROM caddy:latest
+
+COPY --from=builder /usr/bin/caddy /usr/bin/caddy
+</code></pre><h3 id="caddy配置">Caddy配置</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># all supported dns: https://caddyserver.com/docs/modules/</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">*.abc.top</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">tls {</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">dns cloudflare {env.CF_API_TOKEN}</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># how to config wildcard-certificate https://caddyserver.com/docs/caddyfile/patterns#wildcard-certificates</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">headscale.abc.top {</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># headscale 服务地址</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">reverse_proxy http://headscale:8080</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># headscale-ui 地址，必须与上面的域名一致，为了防止CORS错误</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">handle /web* {</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">reverse_proxy http://headscale-ui</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="客户端">客户端</h2>
+<ul>
+<li><a href="https://icloudnative.io/post/how-to-set-up-or-migrate-headscale/#tailscale-%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%A5%E5%85%A5">Tailscale-客户端接入</a></li>
+</ul>
+<h3 id="命令汇总">命令汇总</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 创建用户</span>
+</span></span><span style="display:flex;"><span>docker-compose -f headscale.yaml exec headscale <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  headscale users create ppsteven
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 注册节点（也可以通过图形化页面配置）</span>
+</span></span><span style="display:flex;"><span>docker-compose -f headscale.yaml exec headscale <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  headscale nodes register --user jacky --key nodekey:xxxxxx
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 查看节点连接状态（获取内网ip，是否在线等）</span>
+</span></span><span style="display:flex;"><span>docker-compose -f headscale.yaml exec headscale <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  headscale nodes list
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># linux 命令行连接（用以获取设备的登录识别码 nodekey:xxxxx，拿这个码就可以去服务端连接了）</span>
+</span></span><span style="display:flex;"><span>tailscale up --login-server<span style="color:#f92672">=</span>http://abc.com/ --accept-routes<span style="color:#f92672">=</span>true --accept-dns<span style="color:#f92672">=</span>false
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 查看你的IP地址与到各大公共DERP服务器之间的延迟</span>
+</span></span><span style="display:flex;"><span>tailscale netcheck
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 查看各客户端的连接状态，是直连还是中继一目了然</span>
+</span></span><span style="display:flex;"><span>tailscale status
+</span></span></code></pre></div><h2 id="参考">参考</h2>
+<ul>
+<li>
+<p><a href="https://maxng.cc/post/headscale-ez-tutorial/">搭建属于自己的Tailscale网络</a></p>
+</li>
+<li>
+<p><a href="https://icloudnative.io/post/how-to-set-up-or-migrate-headscale/#tailscale-%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%A5%E5%85%A5">Tailscale 基础教程：Headscale 的部署方法和使用教程</a></p>
+</li>
+<li>
+<p><a href="https://mritd.com/2022/10/19/use-headscale-to-build-a-p2p-network/#3-3%E3%80%81%E8%AF%81%E4%B9%A6%E5%8F%8A%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86">Headscale 搭建 P2P 内网穿透_</a></p>
+</li>
+<li>
+<p><a href="https://github.com/juanfont/headscale/blob/main/docs/reverse-proxy.md#caddy">【官方】Headscale配置反向代理</a></p>
+</li>
+</ul></article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script type="application/javascript" src='https://ppsteven.github.io/github-style-blog/js/toc.js'></script>
+<link rel="stylesheet" href='https://ppsteven.github.io/github-style-blog/css/toc.css' />
+
+  
+</div>
+
+  <div class="footer container-xl width-full p-responsive">
+  <div
+    class="position-relative d-flex flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between flex-sm-items-center pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light ">
+    <a aria-label="Homepage" title="GitHub" class="footer-octicon d-none d-lg-block mr-lg-4" href="https://ppsteven.github.io/github-style-blog/">
+      <svg height="24" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" width="24">
+        <path fill-rule="evenodd"
+          d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+        </path>
+      </svg>
+    </a>
+    <ul class="list-style-none d-flex flex-wrap col-12 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0">
+      
+      <li class="mr-3 mr-lg-0">Theme by <a href='https://github.com/MeiK2333/github-style'>github-style</a></li>
+      
+      <li class="mr-3 mr-lg-0">GitHub and the Invertocat logo are trademarks of <a href="https://github.com/">GitHub, Inc.</a></li>
+    </ul>
+  </div>
+  <div class="d-flex flex-justify-center pb-6">
+    <span class="f6 text-gray-light"></span>
+  </div>
+
+
+</div>
+
+</body>
+
+<script type="application/javascript" src="https://ppsteven.github.io/github-style-blog/js/github-style.js"></script>
+
+
+
+
+
+
+
+</html>

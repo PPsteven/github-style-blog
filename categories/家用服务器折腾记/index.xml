@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>家用服务器折腾记 on PPSteven Blog</title>
+    <link>https://ppsteven.github.io/github-style-blog/categories/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/</link>
+    <description>Recent content in 家用服务器折腾记 on PPSteven Blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 12 Jul 2023 02:09:54 +0000</lastBuildDate>
+    <atom:link href="https://ppsteven.github.io/github-style-blog/categories/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>0x11.家庭服务器折腾记|内网穿透方案|IPV6</title>
+      <link>https://ppsteven.github.io/github-style-blog/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/old-computer-adventures/ipv6/</link>
+      <pubDate>Wed, 12 Jul 2023 02:09:54 +0000</pubDate>
+      <guid>https://ppsteven.github.io/github-style-blog/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/old-computer-adventures/ipv6/</guid>
+      <description>&lt;p&gt;为什么我们需要内网穿透？本质上是由于IPV4数量不够，我们无法申请到公网IPV4，由于外网无法通过IP来直接定位到我们家中的服务器，所以我们上述介绍了N种内网穿透方案去解决这一个问题。&lt;/p&gt;&#xA;&lt;p&gt;内网穿透由于其技术特点，可能存在无法穿透成功，或是成功后速度很慢的情况，基本上难以跑满网络带宽。下面介绍的IPV6方案是可以解决速度上的问题。&lt;/p&gt;&#xA;&lt;p&gt;由于ipv6 基本上是算是用之不竭的，所以现在很容易申请到IPV6地址。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>0x9.家庭服务器折腾记|内网穿透方案|Cloudflare Tunnel</title>
+      <link>https://ppsteven.github.io/github-style-blog/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/old-computer-adventures/cloudflare-tunnel/</link>
+      <pubDate>Mon, 28 Nov 2022 00:54:15 +0000</pubDate>
+      <guid>https://ppsteven.github.io/github-style-blog/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/old-computer-adventures/cloudflare-tunnel/</guid>
+      <description>&lt;h2 id=&#34;cloudflare-tunnel&#34;&gt;Cloudflare Tunnel&lt;/h2&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;文字教程：https://tech.aufomm.com/&lt;/p&gt;&#xA;&lt;p&gt;视频教程：https://www.bilibili.com/video/BV1XY411T7sT&lt;/p&gt;&#xA;&lt;/blockquote&gt;</description>
+    </item>
+    <item>
+      <title>0x8.家庭服务器折腾记|服务搭建|汇总</title>
+      <link>https://ppsteven.github.io/github-style-blog/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/old-computer-adventures/backgroud-services-all/</link>
+      <pubDate>Wed, 26 Oct 2022 02:21:59 +0000</pubDate>
+      <guid>https://ppsteven.github.io/github-style-blog/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/old-computer-adventures/backgroud-services-all/</guid>
+      <description>&lt;p&gt;家用服务器的基本部署环境为&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;家用服务器：Docker(Portainer)&lt;/li&gt;&#xA;&lt;li&gt;公网IP服务器：Rancher&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;基础环境问题解决后，可以开始开始搭建有趣的服务了&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>0x7.家庭服务器折腾记|服务搭建|Portainer</title>
+      <link>https://ppsteven.github.io/github-style-blog/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/old-computer-adventures/portainer/</link>
+      <pubDate>Wed, 26 Oct 2022 02:01:18 +0000</pubDate>
+      <guid>https://ppsteven.github.io/github-style-blog/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/old-computer-adventures/portainer/</guid>
+      <description>&lt;p&gt;继上文提及的K8S容器管理平台，Portainer是一个适合本地部署的轻量化的Docker可视化管理平台，可以让你轻松地管理你的Docker容器。&lt;/p&gt;&#xA;&lt;p&gt;Portainer 使用非常简单，可以让你摆脱记忆复制的Docker命令&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>0x6.家庭服务器折腾记|服务搭建|Rancher</title>
+      <link>https://ppsteven.github.io/github-style-blog/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/old-computer-adventures/rancher/</link>
+      <pubDate>Wed, 26 Oct 2022 01:34:10 +0000</pubDate>
+      <guid>https://ppsteven.github.io/github-style-blog/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/old-computer-adventures/rancher/</guid>
+      <description>&lt;p&gt;Rancher是一个开源的企业级容器管理平台。通过Rancher，企业再也不必自己使用一系列的开源软件去从头搭建容器服务平台。Rancher提供了在生产环境中使用的管理Docker和Kubernetes的全栈化容器部署与管理平台。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>0x10.家庭服务器折腾记|内网穿透方案|Headscale</title>
+      <link>https://ppsteven.github.io/github-style-blog/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/old-computer-adventures/headscale/</link>
+      <pubDate>Mon, 08 Aug 2022 00:37:45 +0000</pubDate>
+      <guid>https://ppsteven.github.io/github-style-blog/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/old-computer-adventures/headscale/</guid>
+      <description>&lt;p&gt;上文已介绍了zerotier是异地组网工具，下面再介绍一款开源的内网穿透工具Headscale，它是基于Tailscale的开源版本。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>0x5.家庭服务器折腾记|内网穿透方案|ZerotierOne</title>
+      <link>https://ppsteven.github.io/github-style-blog/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/old-computer-adventures/zerotier-one/</link>
+      <pubDate>Mon, 08 Aug 2022 00:37:45 +0000</pubDate>
+      <guid>https://ppsteven.github.io/github-style-blog/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/old-computer-adventures/zerotier-one/</guid>
+      <description>&lt;p&gt;内网穿透是把家用服务器改造成网络服务器的重要一步&lt;/p&gt;&#xA;&lt;p&gt;目前成熟的解决方案有&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;申请公网IP：需要联系网络服务商，困难&lt;/li&gt;&#xA;&lt;li&gt;花生壳&lt;/li&gt;&#xA;&lt;li&gt;frp&lt;/li&gt;&#xA;&lt;li&gt;ngork&lt;/li&gt;&#xA;&lt;li&gt;zerotier&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;zerotier和上述方式本质的区别是，它是一个组网工具，目的是将数台已有的设备组合成一个大型的局域网。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>0x3.家庭服务器折腾记|操作系统|Ubuntu</title>
+      <link>https://ppsteven.github.io/github-style-blog/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/old-computer-adventures/ubuntu/</link>
+      <pubDate>Mon, 08 Aug 2022 00:13:09 +0000</pubDate>
+      <guid>https://ppsteven.github.io/github-style-blog/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/old-computer-adventures/ubuntu/</guid>
+      <description>&lt;p&gt;如上文所述，在Manjaro上遇到一些难以解决的问题后，我选择了一个兼具桌面管理环境与无图行的操作系统————&lt;code&gt;Ubuntu&lt;/code&gt;&#xA;Ubuntu 是一款基于Debian的操作系统，它是一款经典受欢迎的操作系统，不过多介绍。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>0x2.家庭服务器折腾记|操作系统|Manjaro.md</title>
+      <link>https://ppsteven.github.io/github-style-blog/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/old-computer-adventures/manjaro/</link>
+      <pubDate>Sun, 07 Aug 2022 22:45:12 +0000</pubDate>
+      <guid>https://ppsteven.github.io/github-style-blog/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/old-computer-adventures/manjaro/</guid>
+      <description>&lt;p&gt;家中闲置了一台电脑，准备用来当做服务器。一方面也是作为linux 学习练练手，二是可以运行一些爬虫小程序或者是网页服务。&lt;/p&gt;&#xA;&lt;p&gt;这里我用的manjaro，这是目前比较流行的linux 发行版，最热门的linux桌面发行版之一。&lt;/p&gt;&#xA;&lt;p&gt;我选择manjaro也是想作为替代windows 来用。manjaro拥有一个非常方便的软件仓库，利用pacman和yay等命令可以十分方便的安装软件。&#xA;Manjaro 是一款基于Arch Linux的操作系统，它是目前Linux众多发行版中对用户非常友好的操作系统，它拥有非常好看的桌面环境（KDE，GNOME），支持滚动发布，一条命令即可安装软件等总多优秀的特点。Manjaro可以让你体验到如Windows，Mac一样的使用体验。&lt;/p&gt;&#xA;&lt;p&gt;更多的介绍可以参考：&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://manjaro.org.cn/&#34;&gt;Manjaro Linux 乐于简单&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>0x1.家庭服务器折腾记|折腾思路</title>
+      <link>https://ppsteven.github.io/github-style-blog/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/old-computer-adventures/idea/</link>
+      <pubDate>Sun, 07 Aug 2022 22:28:56 +0000</pubDate>
+      <guid>https://ppsteven.github.io/github-style-blog/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/old-computer-adventures/idea/</guid>
+      <description>&lt;p&gt;工作学习中，电脑设备不断的迭代升级，手上闲置了几台旧电脑，抱着&amp;quot;废物利用&amp;quot;的想法，把这些旧电脑改造一下，把限制的资源重新利用起来。&lt;/p&gt;&#xA;&lt;p&gt;目前，我的想法是逐步的把电脑改造成集&lt;strong&gt;数据存储&lt;/strong&gt;，&lt;strong&gt;web服务器&lt;/strong&gt;，&lt;strong&gt;视频服务器&lt;/strong&gt;一体的远程设备。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

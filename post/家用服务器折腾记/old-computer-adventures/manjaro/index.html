@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script type="application/javascript" src='https://ppsteven.github.io/github-style-blog/js/theme-mode.js'></script>
+    <link rel="stylesheet" href='https://ppsteven.github.io/github-style-blog/css/frameworks.min.css' />
+    <link rel="stylesheet" href='https://ppsteven.github.io/github-style-blog/css/github.min.css' />
+    <link rel="stylesheet" href='https://ppsteven.github.io/github-style-blog/css/github-style.css' />
+    <link rel="stylesheet" href='https://ppsteven.github.io/github-style-blog/css/light.css' />
+    <link rel="stylesheet" href='https://ppsteven.github.io/github-style-blog/css/dark.css' />
+    <link rel="stylesheet" href='https://ppsteven.github.io/github-style-blog/css/syntax.css' />
+    <title>0x2.家庭服务器折腾记|操作系统|Manjaro.md - PPSteven Blog</title>
+    
+    <link rel="icon" type="image/x-icon" href='https://ppsteven.github.io/github-style-blog/images/favicon.ico'>
+    
+    <meta name="theme-color" content="#1e2327">
+
+    
+    
+    
+
+    
+    <meta
+  name="description"
+  content="家中闲置了一台电脑，准备用来当做服务器。一方面也是作为linux 学习练练手，二是可以运行一些爬虫小程序或者是网页服务。
+这里我用的manjaro，这是目前比较流行的linux 发行版，最热门的linux桌面发行版之一。
+我选择manjaro也是想作为替代windows 来用。manjaro拥有一个非常方便的软件仓库，利用pacman和yay等命令可以十分方便的安装软件。 Manjaro 是一款基于Arch Linux的操作系统，它是目前Linux众多发行版中对用户非常友好的操作系统，它拥有非常好看的桌面环境（KDE，GNOME），支持滚动发布，一条命令即可安装软件等总多优秀的特点。Manjaro可以让你体验到如Windows，Mac一样的使用体验。
+更多的介绍可以参考：
+Manjaro Linux 乐于简单
+"
+/>
+<meta
+  name="keywords"
+  content=''
+/>
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ppsteven.github.io/github-style-blog/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/old-computer-adventures/manjaro/" />
+
+
+<meta name="twitter:card" content="summary" />
+<meta
+  name="twitter:title"
+  content="0x2.家庭服务器折腾记|操作系统|Manjaro.md - PPSteven Blog"
+/>
+<meta
+  name="twitter:description"
+  content="家中闲置了一台电脑，准备用来当做服务器。一方面也是作为linux 学习练练手，二是可以运行一些爬虫小程序或者是网页服务。
+这里我用的manjaro，这是目前比较流行的linux 发行版，最热门的linux桌面发行版之一。
+我选择manjaro也是想作为替代windows 来用。manjaro拥有一个非常方便的软件仓库，利用pacman和yay等命令可以十分方便的安装软件。 Manjaro 是一款基于Arch Linux的操作系统，它是目前Linux众多发行版中对用户非常友好的操作系统，它拥有非常好看的桌面环境（KDE，GNOME），支持滚动发布，一条命令即可安装软件等总多优秀的特点。Manjaro可以让你体验到如Windows，Mac一样的使用体验。
+更多的介绍可以参考：
+Manjaro Linux 乐于简单
+"
+/>
+<meta name="twitter:site" content="https://ppsteven.github.io/github-style-blog/" />
+<meta name="twitter:creator" content="" />
+<meta
+  name="twitter:image"
+  content="https://ppsteven.github.io/github-style-blog/"
+/>
+
+
+<meta
+  property="og:type"
+  content="article"
+/>
+<meta
+  property="og:title"
+  content="0x2.家庭服务器折腾记|操作系统|Manjaro.md - PPSteven Blog"
+/>
+<meta
+  property="og:description"
+  content="家中闲置了一台电脑，准备用来当做服务器。一方面也是作为linux 学习练练手，二是可以运行一些爬虫小程序或者是网页服务。
+这里我用的manjaro，这是目前比较流行的linux 发行版，最热门的linux桌面发行版之一。
+我选择manjaro也是想作为替代windows 来用。manjaro拥有一个非常方便的软件仓库，利用pacman和yay等命令可以十分方便的安装软件。 Manjaro 是一款基于Arch Linux的操作系统，它是目前Linux众多发行版中对用户非常友好的操作系统，它拥有非常好看的桌面环境（KDE，GNOME），支持滚动发布，一条命令即可安装软件等总多优秀的特点。Manjaro可以让你体验到如Windows，Mac一样的使用体验。
+更多的介绍可以参考：
+Manjaro Linux 乐于简单
+"
+/>
+<meta property="og:url" content="https://ppsteven.github.io/github-style-blog/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/old-computer-adventures/manjaro/" />
+<meta property="og:site_name" content="0x2.家庭服务器折腾记|操作系统|Manjaro.md" />
+<meta
+  property="og:image"
+  content="https://ppsteven.github.io/github-style-blog/"
+/>
+<meta property="og:image:width" content="2048" />
+<meta property="og:image:height" content="1024" />
+
+<meta property="article:published_time" content="2022-08-07 22:45:12 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+</head>
+
+
+<body>
+  <div style="position: relative">
+  <header class="Header js-details-container Details px-3 px-md-4 px-lg-5 flex-wrap flex-md-nowrap open Details--on">
+    <div class="Header-item mobile-none" style="margin-top: -4px; margin-bottom: -4px;">
+      <a class="Header-link" href="https://github.com/PPsteven">
+        <img class="octicon" height="32" width="32" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png">
+      </a>
+    </div>
+    <div class="Header-item d-md-none">
+      <button class="Header-link btn-link js-details-target" type="button"
+        onclick="document.querySelector('#header-search').style.display = document.querySelector('#header-search').style.display == 'none'? 'block': 'none'">
+        <svg height="24" class="octicon octicon-three-bars" viewBox="0 0 16 16" version="1.1" width="24">
+          <path fill-rule="evenodd" d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 7.75zM1.75 12a.75.75 0 100 1.5h12.5a.75.75 0 100-1.5H1.75z">
+          </path>
+        </svg>
+      </button>
+    </div>
+    <div style="display: none;" id="header-search"
+      class="Header-item Header-item--full flex-column flex-md-row width-full flex-order-2 flex-md-order-none mr-0 mr-md-3 mt-3 mt-md-0 Details-content--hidden-not-important d-md-flex">
+      <div
+        class="Header-search header-search flex-auto js-site-search position-relative flex-self-stretch flex-md-self-auto mb-3 mb-md-0 mr-0 mr-md-3 scoped-search site-scoped-search js-jump-to">
+        <div class="position-relative">
+          
+          <form target="_blank" action="https://www.google.com/search" accept-charset="UTF-8" method="get"
+            autocomplete="off">
+            <label
+              class="Header-search-label form-control input-sm header-search-wrapper p-0 js-chromeless-input-container header-search-wrapper-jump-to position-relative d-flex flex-justify-between flex-items-center">
+              <input type="text"
+                class="Header-search-input form-control input-sm header-search-input jump-to-field js-jump-to-field js-site-search-focus js-site-search-field is-clearable"
+                name="q" value="" placeholder="Search" autocomplete="off">
+              <input type="hidden" name="q" value="site:https://ppsteven.github.io/github-style-blog/">
+            </label>
+          </form>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="Header-item Header-item--full flex-justify-center d-md-none position-relative">
+      <a class="Header-link " href="https://github.com/PPsteven">
+        <img class="octicon octicon-mark-github v-align-middle" height="32" width="32" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png">
+      </a>
+    </div>
+    <div class="Header-item" style="margin-right: 0;">
+      <a href="javascript:void(0)" class="Header-link no-select" onclick="switchTheme()">
+        <svg style="fill: var(--color-profile-color-modes-toggle-moon);" class="no-select" viewBox="0 0 16 16"
+          version="1.1" width="16" height="16">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M4.52208 7.71754C7.5782 7.71754 10.0557 5.24006 10.0557 2.18394C10.0557 1.93498 10.0392 1.68986 10.0074 1.44961C9.95801 1.07727 10.3495 0.771159 10.6474 0.99992C12.1153 2.12716 13.0615 3.89999 13.0615 5.89383C13.0615 9.29958 10.3006 12.0605 6.89485 12.0605C3.95334 12.0605 1.49286 10.001 0.876728 7.24527C0.794841 6.87902 1.23668 6.65289 1.55321 6.85451C2.41106 7.40095 3.4296 7.71754 4.52208 7.71754Z">
+          </path>
+        </svg>
+      </a>
+    </div>
+  </header>
+</div>
+
+  <div id="search-result" class="container-lg px-3 new-discussion-timeline" style="display: none;">
+</div>
+
+  
+<div class="application-main">
+  <div>
+  <main>
+    <div class="gisthead pagehead bg-gray-light pb-0 pt-3 mb-4">
+      <div class="px-0">
+        <div class="mb-3 d-flex px-3 px-md-3 px-lg-5">
+          <div class="flex-auto min-width-0 width-fit mr-3">
+            <div class="d-flex">
+              <div class="d-none d-md-block">
+                <a class="avatar mr-2 flex-shrink-0" href="https://ppsteven.github.io/github-style-blog/">
+                  <img class=" avatar-user"
+                    src="https://github.com/PPsteven.png"
+                    width="32" height="32"></a>
+              </div>
+              <div class="d-flex flex-column">
+                <h1 class="break-word f3 text-normal mb-md-0 mb-1">
+                  <span class="author">
+                    <a href="https://ppsteven.github.io/github-style-blog/">PPSteven</a>
+                  </span>
+                  <span class="path-divider">/</span>
+                  <strong class="css-truncate css-truncate-target mr-1" style="max-width: 410px">
+                    <a href="https://ppsteven.github.io/github-style-blog/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/old-computer-adventures/manjaro/">0x2.家庭服务器折腾记|操作系统|Manjaro.md</a>
+                  </strong>
+                </h1>
+                <div class="note m-0">
+                  Created <relative-time datetime="Sun, 07 Aug 2022 22:45:12 &#43;0000"
+                    class="no-wrap">
+                    Sun, 07 Aug 2022 22:45:12 &#43;0000</relative-time>
+
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-lg px-3 new-discussion-timeline">
+      <div class="repository-content gist-content">
+        <div>
+          <div class="js-gist-file-update-container js-task-list-container file-box">
+            <div id="file-pytest" class="file my-2">
+              <div id="post-header" class="file-header d-flex flex-md-items-center flex-items-start sticky-header" style="z-index: 2">
+                <div class="file-info d-flex flex-md-items-center flex-items-start flex-order-1 flex-auto">
+                  <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">
+                    
+                    <summary id="toc-toggle" onclick="clickToc()" class="btn btn-octicon m-0 mr-2 p-2">
+                      <svg aria-hidden="true" viewBox="0 0 16 16" height="16" width="16" class="octicon octicon-list-unordered">
+                        <path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path>
+                      </svg>
+                    </summary>
+                    <details-menu class="SelectMenu" id="toc-details" style="display: none;">
+                      <div class="SelectMenu-modal rounded-3 mt-1" style="max-height: 340px;">
+                        <div class="SelectMenu-list SelectMenu-list--borderless p-2" style="overscroll-behavior: contain;" id="toc-list">
+                        </div>
+                      </div>
+                    </details-menu>
+                      956 Words
+                    
+
+                  </div>
+                  <div class="file-actions flex-order-2 pt-0">
+                    
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="Box-body px-5 pb-5" style="z-index: 1">
+                <article class="markdown-body entry-content container-lg"><p>家中闲置了一台电脑，准备用来当做服务器。一方面也是作为linux 学习练练手，二是可以运行一些爬虫小程序或者是网页服务。</p>
+<p>这里我用的manjaro，这是目前比较流行的linux 发行版，最热门的linux桌面发行版之一。</p>
+<p>我选择manjaro也是想作为替代windows 来用。manjaro拥有一个非常方便的软件仓库，利用pacman和yay等命令可以十分方便的安装软件。
+Manjaro 是一款基于Arch Linux的操作系统，它是目前Linux众多发行版中对用户非常友好的操作系统，它拥有非常好看的桌面环境（KDE，GNOME），支持滚动发布，一条命令即可安装软件等总多优秀的特点。Manjaro可以让你体验到如Windows，Mac一样的使用体验。</p>
+<p>更多的介绍可以参考：</p>
+<p><a href="https://manjaro.org.cn/">Manjaro Linux 乐于简单</a></p>
+<h2 id="系统安装">系统安装</h2>
+<ul>
+<li><a href="https://segmentfault.com/a/1190000041023208">Manjaro Linux 入门使用教程</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/376787855">2021【保姆级教程】Win+Manjaro双系统双硬盘安装</a></li>
+</ul>
+<h3 id="1镜像下载">1.镜像下载</h3>
+<p>镜像下载：建议去<a href="https://www.manjaro.org/download/">Manjaro官方网站</a>下载，目前官方的主题有Plasma(KDE)，Xfce和Gome。三种都用过，都差不多，感觉KDE最精美，Xfce最轻量，Gnome比较新潮。我现在用的是Gnome。</p>
+<h3 id="2启动盘制作">2.启动盘制作</h3>
+<p>这里使用的是Rufus，操作非常简单。</p>
+<p><img src="/post/%E5%AE%B6%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8A%98%E8%85%BE%E8%AE%B0/assets/img/1460000041023211.png" alt="file"></p>
+<h3 id="3安装">3.安装</h3>
+<p>可以参考：<a href="https://linuxacme.cn/99">Manjaro Linux安装教程(极致linux原创)</a></p>
+<p>其给出的分区方案为：</p>
+<table>
+  <thead>
+      <tr>
+          <th>大小/分配</th>
+          <th>/根分区</th>
+          <th>/home分区</th>
+          <th>swap分区</th>
+          <th>EFI引导分区</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>新分区&lt;80G</td>
+          <td>所有</td>
+          <td>无</td>
+          <td>2GB</td>
+          <td>300MB</td>
+      </tr>
+      <tr>
+          <td>新分区128G</td>
+          <td>60GB</td>
+          <td>60GB</td>
+          <td>4GB</td>
+          <td>1GB</td>
+      </tr>
+      <tr>
+          <td>新分区256G</td>
+          <td>80GB</td>
+          <td>160GB</td>
+          <td>8GB</td>
+          <td>1GB</td>
+      </tr>
+      <tr>
+          <td>新分区512G</td>
+          <td>150GB</td>
+          <td>340GB</td>
+          <td>16GB</td>
+          <td>1GB</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="配置">配置</h2>
+<h3 id="1更换软件源">1.更换软件源</h3>
+<pre tabindex="0"><code>sudo pacman -Syy
+sudo pacman-mirrors -i -c China -m rank  #选一个阿里源就行
+</code></pre><p>增加中文社区的源</p>
+<p>可以编辑<code>/etc/pacman.conf</code></p>
+<pre tabindex="0"><code># sudo vi /etc/pacman.conf
+[archlinuxcn]
+SigLevel = Optional TrustedOnly
+Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
+</code></pre><p>或直接使用命令行修改</p>
+<pre tabindex="0"><code>sudo sed -i &#39;$a\[archlinuxcn]\nServer = https://mirrors.ustc.edu.cn/archlinuxcn/$arch&#39;  /etc/pacman.conf
+</code></pre><p>添加完了之后更新</p>
+<pre tabindex="0"><code>sudo pacman -Sy archlinuxcn-keyring
+</code></pre><h2 id="安装软件">安装软件</h2>
+<p>首先，第一步，先安装<code>AUR 包管理工具(yay)</code>，我们之后需要用到它来安装软件</p>
+<p>软件安装命令如下：</p>
+<pre tabindex="0"><code>sudo pacman -S yay # Arch Linux AUR 包管理工具
+</code></pre><h3 id="软件列表">软件列表</h3>
+<pre tabindex="0"><code># vim
+sudo pacman -S vim
+
+# chrome
+sudo pacman -S google-chrome
+yay -S google-chrome
+</code></pre><h2 id="软件管理">软件管理</h2>
+<pre tabindex="0"><code>sudo pacman -S package_name # install
+sudo pacman -R package_name # remove
+sudo pacman -Rs package_name # 卸载软件＋不需要的依赖
+</code></pre><h2 id="其他命令">其他命令</h2>
+<pre tabindex="0"><code>screenfetch # 查看系统信息
+</code></pre><h2 id="缺点与不足">缺点与不足</h2>
+<p>Manjaro 陪伴了我一段时间，最终我放弃将其作为家用服务器的操作系统选择，原因是其作为一款桌面操作系统很不错，但是作为一款服务器操作系统稍有不足，很多软件并未对其适配，使得在安装时碰到了很多问题难以解决。</p></article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script type="application/javascript" src='https://ppsteven.github.io/github-style-blog/js/toc.js'></script>
+<link rel="stylesheet" href='https://ppsteven.github.io/github-style-blog/css/toc.css' />
+
+  
+</div>
+
+  <div class="footer container-xl width-full p-responsive">
+  <div
+    class="position-relative d-flex flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between flex-sm-items-center pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light ">
+    <a aria-label="Homepage" title="GitHub" class="footer-octicon d-none d-lg-block mr-lg-4" href="https://ppsteven.github.io/github-style-blog/">
+      <svg height="24" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" width="24">
+        <path fill-rule="evenodd"
+          d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+        </path>
+      </svg>
+    </a>
+    <ul class="list-style-none d-flex flex-wrap col-12 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0">
+      
+      <li class="mr-3 mr-lg-0">Theme by <a href='https://github.com/MeiK2333/github-style'>github-style</a></li>
+      
+      <li class="mr-3 mr-lg-0">GitHub and the Invertocat logo are trademarks of <a href="https://github.com/">GitHub, Inc.</a></li>
+    </ul>
+  </div>
+  <div class="d-flex flex-justify-center pb-6">
+    <span class="f6 text-gray-light"></span>
+  </div>
+
+
+</div>
+
+</body>
+
+<script type="application/javascript" src="https://ppsteven.github.io/github-style-blog/js/github-style.js"></script>
+
+
+
+
+
+
+
+</html>
