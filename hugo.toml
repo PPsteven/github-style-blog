@@ -1,4 +1,4 @@
-baseURL = 'https://ppsteven.github.io/github-style-blog/'
+baseURL = 'https://ppsteven.github.io/'
 locale = 'en-us'
 title = 'PPSteven Blog'
 theme = 'github-style'
